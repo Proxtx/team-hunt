@@ -1,0 +1,46 @@
+#miniMapWrap {
+  position: relative;
+  width: 80%;
+}
+
+#downArrowsWrap {
+  width: 20%;
+}
+
+#downArrowsInnerWrap {
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+}
+
+#catchText {
+  font-size: 70%;
+  text-decoration-line: underline;
+}
+
+#timeIndicator {
+  background-color: var(--contrastColor);
+  width: 80%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#timeText {
+  position: relative;
+  z-index: 1;
+  color: var(--backgroundColor);
+}
+
+#timeWrap {
+  position: relative;
+  z-index: 0;
+}
+
+#logList {
+  display: flex;
+  flex-direction: column-reverse;
+}

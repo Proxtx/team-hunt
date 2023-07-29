@@ -1,0 +1,43 @@
+@font-face {
+  font-family: Ubuntu Mono;
+  src: url("/lib/fonts/UbuntuMono.ttf");
+}
+
+:host,
+:root {
+  --backgroundColor: #000000;
+  --contrastColor: #ffffff;
+  --borderColor: #4f4f4f;
+  --contentSpacing: 9px;
+  --largeContentSpacing: 20px;
+  --accentColor: #2d2aff;
+}
+
+body {
+  margin: 0;
+  background-image: url("/lib/images/bg.jpg");
+  background-repeat: repeat;
+  color: var(--contrastColor);
+  font-family: "Ubuntu Mono", monospace;
+}
+
+#mainContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--largeContentSpacing);
+  gap: var(--largeContentSpacing);
+}
+
+.mainBox {
+  width: 100%;
+}
+
+.textHighlight {
+  color: var(--accentColor);
+}
+
+t-team-status {
+  display: block;
+  width: 100%;
+}

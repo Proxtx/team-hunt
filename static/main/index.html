@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Hunt</title>
+    <link rel="stylesheet" href="../lib/main.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="mainContent">
+      <t-box class="mainBox">
+        <t-list-content>
+          <t-text-box>Connected</t-text-box>
+          <t-list-content-h>
+            <t-box id="miniMapWrap"><t-map id="miniMap"></t-map></t-box>
+            <t-box id="downArrowsWrap">
+              <div id="downArrowsInnerWrap">
+                <img src="/lib/images/downArrows.svg" />
+              </div>
+            </t-box>
+          </t-list-content-h>
+          <t-list-content-h>
+            <t-team-status></t-team-status>
+            <t-team-status></t-team-status>
+            <t-team-status></t-team-status>
+          </t-list-content-h>
+          <t-text-box
+            ><a id="catchText"
+              >Klicke hier falls du gefangen wurdest und den Locator hast.</a
+            ></t-text-box
+          >
+          <t-text-box id="timeWrap">
+            <a id="timeText"> Zeit </a>
+            <div id="timeIndicator"></div>
+          </t-text-box>
+        </t-list-content>
+      </t-box>
+
+      <t-box class="mainBox">
+        <t-list-content>
+          <t-text-box>Protokoll</t-text-box>
+          <div id="logList">
+            <t-log></t-log>
+          </div>
+        </t-list-content>
+      </t-box>
+    </div>
+    <script src="main.js" type="module"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  </body>
+</html>

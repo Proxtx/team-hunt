@@ -1,0 +1,10 @@
+div {
+  padding: var(--contentSpacing);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  font-size: 130%;
+}

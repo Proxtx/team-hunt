@@ -1,2 +1,2 @@
 Custom map with trains
-https://api.mapbox.com/styles/v1/proxtx/cljhv1oey000w01pk2x608r97/wmts?access_token=pk.eyJ1IjoicHJveHR4IiwiYSI6ImNsNXF5dm9mZTBpdTgzanA4bXAxZGxqajIifQ.ardzxffHpMXyhvSjlC-gAw
+https://api.mapbox.com/styles/v1/proxtx/clkoc742t00lw01pcfykfadqc/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicHJveHR4IiwiYSI6ImNsNXF5dm9mZTBpdTgzanA4bXAxZGxqajIifQ.ardzxffHpMXyhvSjlC-gAw

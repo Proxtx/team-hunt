@@ -1,0 +1,4 @@
+div {
+  border: 0.5px solid var(--borderColor);
+  background-color: var(--backgroundColor);
+}
