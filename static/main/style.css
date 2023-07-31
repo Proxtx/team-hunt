@@ -44,3 +44,25 @@
   display: flex;
   flex-direction: column-reverse;
 }
+
+#upArrowsInnerWrap {
+  height: 80px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+}
+
+#upArrows {
+  transform: rotate(180deg);
+}
+
+#buttonsWrap {
+  display: flex;
+  padding: var(--largeContentSpacing);
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}

@@ -41,3 +41,10 @@ t-team-status {
   display: block;
   width: 100%;
 }
+
+button {
+  background-color: white;
+  padding: var(--contentSpacing);
+  border: none;
+  border-radius: none;
+}
