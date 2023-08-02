@@ -9,18 +9,40 @@
   </head>
   <body>
     <div id="mainContent">
-      <t-box class="mainBox">
+      <t-box class="mainBox" id="initBox">
+        <t-list-content>
+          <t-text-box>Warten. Das Spiel wurde noch nicht gestartet.</t-text-box>
+          <t-list-content-h>
+            <t-box id="initName">UserName</t-box
+            ><t-box>Team <a id="initTeamId">X</a></t-box>
+          </t-list-content-h>
+          <button>Zurücksetzen</button>
+        </t-list-content>
+      </t-box>
+
+      <t-box class="mainBox" id="endBox">
+        <t-list-content>
+          <t-text-box>Das Spiel ist beendet.</t-text-box>
+          <t-list-content-h>
+            <t-team-status></t-team-status>
+            <t-team-status></t-team-status>
+            <t-team-status></t-team-status>
+          </t-list-content-h>
+        </t-list-content>
+      </t-box>
+
+      <t-box class="mainBox" id="mainBox">
         <t-list-content>
           <t-text-box>Connected</t-text-box>
-          <t-list-content-h>
-            <t-box id="miniMapWrap"><t-map id="miniMap"></t-map></t-box>
+          <t-list-content-h id="miniMapWrap">
+            <t-box id="miniMapInnerWrap"><t-map id="miniMap"></t-map></t-box>
             <t-box id="downArrowsWrap">
               <div id="downArrowsInnerWrap">
                 <img src="/lib/images/downArrows.svg" />
               </div>
             </t-box>
           </t-list-content-h>
-          <t-list-content
+          <t-list-content id="bigMapWrap"
             ><t-box><t-map id="bigMap"></t-map></t-box
             ><t-box>
               <t-list-content>
@@ -56,9 +78,7 @@
       <t-box class="mainBox">
         <t-list-content>
           <t-text-box>Protokoll</t-text-box>
-          <div id="logList">
-            <t-log></t-log>
-          </div>
+          <div id="logList"></div>
         </t-list-content>
       </t-box>
     </div>

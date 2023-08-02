@@ -12,12 +12,12 @@ export class Component {
     console.log("Map API available");
 
     mapboxgl.accessToken =
-      "pk.eyJ1IjoicHJveHR4IiwiYSI6ImNsNXF5dm9mZTBpdTgzanA4bXAxZGxqajIifQ.ardzxffHpMXyhvSjlC-gAw";
+      "pk.eyJ1IjoicHJveHR4IiwiYSI6ImNsNXF5dm9mZTBpdTgzanA4bXAxZGxqajIifQ.ardzxffHpMXyhvSjlC-gAw"; //TODO: fetch from config
     this.map = new mapboxgl.Map({
-      container: this.mapElem, // container ID
-      style: "mapbox://styles/proxtx/clkoc742t00lw01pcfykfadqc/draft", // style URL
-      center: [6.958811, 50.93591], // starting position [lng, lat]
-      zoom: 12.8, // starting zoom
+      container: this.mapElem,
+      style: "mapbox://styles/proxtx/clkoc742t00lw01pcfykfadqc/draft",
+      center: [6.958811, 50.93591], // TODO: fetch from server
+      zoom: 12.8, // TODO: fetch from server
     });
   }
 }
