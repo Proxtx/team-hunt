@@ -7,19 +7,16 @@ const defaultGameState = {
   teams: [
     {
       role: "hunter",
-      state: "active",
       members: [],
       points: 0,
     },
     {
       role: "hunter",
-      state: "active",
       members: [],
       points: 0,
     },
     {
       role: "hunter",
-      state: "active",
       members: [],
       points: 0,
     },
@@ -41,6 +38,7 @@ const defaultGameState = {
     advancedHistory: false,
     teamsTimeoutOnCapture: 1000 * 60 * 3,
     locationRevealInterval: 1000 * 60 * 5,
+    gameDuration: 60 * 1000 * 60 * 2,
   },
 
   liveInformation: {
@@ -52,7 +50,6 @@ const defaultGameState = {
         text: "Server start",
       },
     ],
-    //timeStart
     //lastLocationReveal
   },
 };

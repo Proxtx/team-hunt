@@ -1,8 +1,10 @@
 import { gameState } from "./receiver.js";
 import { setLogs } from "./log.js";
 import { updateMaps } from "./map.js";
+import { updateTime } from "./time.js";
 
 export const update = () => {
+  updateTime();
   updateGameStateState();
   setLogs(gameState.liveInformation.log);
 };
