@@ -2,6 +2,7 @@ import { gameState } from "./receiver.js";
 import { setLogs } from "./log.js";
 import { updateMaps } from "./map.js";
 import { updateTime } from "./time.js";
+import { renderTeams } from "./teams.js";
 
 export const update = () => {
   updateTime();
@@ -12,6 +13,10 @@ export const update = () => {
 const initBox = document.getElementById("initBox");
 const mainBox = document.getElementById("mainBox");
 const endBox = document.getElementById("endBox");
+
+const mainTeamsWrap = document.getElementById("mainTeamsWrap");
+const endTeamsWrap = document.getElementById("endTeamsWrap");
+
 const updateGameStateState = () => {
   switch (gameState.liveInformation.state) {
     case "preparing":
@@ -25,11 +30,13 @@ const updateGameStateState = () => {
       mainBox.style.display = "block";
       endBox.style.display = "none";
       updateMainBox();
+      renderTeams(mainTeamsWrap);
       break;
     case "ended":
       initBox.style.display = "none";
       mainBox.style.display = "none";
       endBox.style.display = "block";
+      renderTeams(endTeamsWrap);
       break;
   }
 };
