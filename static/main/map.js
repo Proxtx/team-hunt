@@ -1,9 +1,19 @@
-export const updateMaps = () => {};
+import { gameState } from "./receiver.js";
 
 const downArrowsInnerWrap = document.getElementById("downArrowsInnerWrap");
 const upArrowsInnerWrap = document.getElementById("upArrowsInnerWrap");
 const miniMapWrap = document.getElementById("miniMapWrap");
 const bigMapWrap = document.getElementById("bigMapWrap");
+const miniMap = document.getElementById("miniMap");
+const bigMap = document.getElementById("bigMap");
+
+await uiBuilder.ready(miniMap);
+await uiBuilder.ready(bigMap);
+
+bigMap.component.mapElem.style.height = "600px";
+
+await miniMap.component.init();
+await bigMap.component.init();
 
 bigMapWrap.style.display = "none";
 
@@ -17,9 +27,14 @@ upArrowsInnerWrap.addEventListener("click", () => {
   bigMapWrap.style.display = "none";
 });
 
-const maps = [
-  document.getElementById("miniMap"),
-  document.getElementById("bigMap"),
-];
+const maps = [miniMap, bigMap];
 
-const updateMap = (map) => {};
+const updateMap = (map) => {
+  map.component.updateMap(gameState);
+};
+
+export const updateMaps = () => {
+  for (let map of maps) {
+    updateMap(map);
+  }
+};

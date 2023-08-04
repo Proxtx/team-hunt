@@ -48,3 +48,16 @@ button {
   border: none;
   border-radius: none;
 }
+
+.mapboxgl-popup-content {
+  background-color: var(--backgroundColor);
+}
+
+.mapboxgl-popup-tip {
+  border-bottom-color: var(--backgroundColor) !important;
+  border-top-color: var(--backgroundColor) !important;
+}
+
+.mapboxgl-popup-close-button {
+  color: var(--contrastColor);
+}

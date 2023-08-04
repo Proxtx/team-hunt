@@ -22,8 +22,8 @@ const defaultGameState = {
     },
   ],
 
-  hunterInformation: {
-    capturedLocations: {},
+  runnerInformation: {
+    capturedLocations: [],
     fakeLocations: [],
     pendingFakeLocations: [],
     //locatorLocation
@@ -42,7 +42,7 @@ const defaultGameState = {
   },
 
   liveInformation: {
-    publiclyCapturedLocations: {},
+    publiclyCapturedLocations: [],
     state: "preparing",
     log: [
       {
@@ -51,6 +51,7 @@ const defaultGameState = {
       },
     ],
     //lastLocationReveal
+    //start-time
   },
 };
 

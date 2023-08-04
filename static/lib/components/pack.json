@@ -41,6 +41,12 @@
       "template": "/components/log/index.html",
       "component": "/components/log/main.js",
       "styles": ["/main.css", "/components/log/style.css"]
+    },
+    "location-pop-up": {
+      "name": "t-location-pop-up",
+      "template": "/components/location-pop-up/index.html",
+      "component": "/components/location-pop-up/main.js",
+      "styles": ["/main.css", "/components/location-pop-up/style.css"]
     }
   }
 }

@@ -1,0 +1,13 @@
+img {
+  width: 100px;
+}
+
+#wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--contentSpacing);
+}
+
+button {
+  display: none;
+}

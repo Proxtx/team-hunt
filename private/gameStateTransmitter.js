@@ -11,6 +11,9 @@ export const updateUser = async (username) => {
     );
   const data = getUserData(username);
 
+  if (JSON.stringify(data) == JSON.stringify(clients[username].gameState))
+    return;
+
   let exitCount = 0;
   let res;
 
@@ -39,8 +42,10 @@ const getUserData = (username) => {
       teamId = team;
   if (!teamId) throw new Error(`${username} is in no team`);
 
+  let parsedTeamData = prepareTeamUpdate(teamId);
+
   let data = {
-    team: prepareTeamUpdate(teamId),
+    team: parsedTeamData,
 
     config: gameState.gameState.config,
 
@@ -48,13 +53,16 @@ const getUserData = (username) => {
 
     teams: gameState.gameState.teams,
 
-    possibleLocatorLocations: gameState.gameState.hunterInformation
+    possibleLocatorLocations: gameState.gameState.runnerInformation
       .locatorLocation
-      ? gameState.gameState.hunterInformation.fakeLocations.concat(
-          gameState.gameState.hunterInformation.locatorLocation
+      ? gameState.gameState.runnerInformation.fakeLocations.concat(
+          gameState.gameState.runnerInformation.locatorLocation
         )
-      : gameState.gameState.hunterInformation.fakeLocations,
+      : gameState.gameState.runnerInformation.fakeLocations,
   };
+
+  if (parsedTeamData.team.role == "runner")
+    data.runnerInformation = gameState.gameState.runnerInformation;
 
   return data;
 };

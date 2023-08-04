@@ -30,7 +30,6 @@ const updateGameStateState = () => {
       mainBox.style.display = "block";
       endBox.style.display = "none";
       updateMainBox();
-      renderTeams(mainTeamsWrap);
       break;
     case "ended":
       initBox.style.display = "none";
@@ -51,4 +50,5 @@ const updateInitBox = () => {
 
 const updateMainBox = () => {
   updateMaps();
+  renderTeams(mainTeamsWrap);
 };
