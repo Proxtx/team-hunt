@@ -1,3 +1,6 @@
+let connectedIndicator = document.getElementById("connectedIndicator");
+if (!connectedIndicator) connectedIndicator = {};
+
 export const connect = async () => {
   let result;
   let r;
@@ -8,6 +11,7 @@ export const connect = async () => {
   setTimeout(() => r(), 5000);
   await new Promise((resolve) => (r = resolve));
   if (!result) {
+    connectedIndicator.innerText = "Not Connected!";
     console.log("ws failed retry in 5 seconds");
     await new Promise((r) => setTimeout(r, 5000));
     connect();
@@ -15,15 +19,10 @@ export const connect = async () => {
   }
 
   console.log("connection established");
+  connectedIndicator.innerText = "Connected";
   result.ws.addEventListener("close", () => {
+    connectedIndicator.innerText = "Not Connected!";
     console.log("connection lost");
     connect();
   });
-
-  let ws = result.ws;
-
-  while (ws.readyState !== WebSocket.CLOSED) {
-    ws.send("PING");
-    await new Promise((r) => setTimeout(r, 10000));
-  }
 };

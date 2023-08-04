@@ -9,30 +9,39 @@ export const updateUser = async (username) => {
     return console.log(
       `Received a game update but ${username} does not seem to be connected to the server.`
     );
-  const data = getUserData(username);
 
-  if (JSON.stringify(data) == JSON.stringify(clients[username].gameState))
-    return;
+  try {
+    const data = getUserData(username);
 
-  let exitCount = 0;
-  let res;
+    if (JSON.stringify(data) == JSON.stringify(clients[username].gameState))
+      return;
 
-  do {
-    if (res)
-      console.log("Was unable to send gameStateUpdate to client: ", username);
-    res = await send(
+    let exitCount = 0;
+    let res;
+    do {
+      if (res)
+        console.log("Was unable to send gameStateUpdate to client: ", username);
+      res = await send(
+        username,
+        "updateGameState",
+        compare(
+          res ? "" : JSON.stringify(clients[username].gameState),
+          JSON.stringify(data)
+        )
+      );
+
+      exitCount++;
+    } while (exitCount < 5 && !res.transmitSuccess);
+
+    if (res.transmitSuccess) clients[username].gameState = data;
+  } catch (e) {
+    console.log(
+      "An error happened while updating a clients gameState. Username:",
       username,
-      "updateGameState",
-      compare(
-        res ? "" : JSON.stringify(clients[username].gameState),
-        JSON.stringify(data)
-      )
+      "Error:",
+      e
     );
-
-    exitCount++;
-  } while (exitCount < 5 && !res.transmitSuccess);
-
-  if (res.transmitSuccess) clients[username].gameState = data;
+  }
 };
 
 const getUserData = (username) => {
