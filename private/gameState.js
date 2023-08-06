@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import config from "@proxtx/config";
+import process from "process";
 
 const defaultGameState = {
   available: true,
@@ -27,6 +28,7 @@ const defaultGameState = {
     fakeLocations: [],
     pendingFakeLocations: [],
     //locatorLocation
+    //publicLocatorLocation
   },
 
   users: {},
@@ -51,7 +53,7 @@ const defaultGameState = {
       },
     ],
     //lastLocationReveal
-    //start-time
+    //startTime
   },
 };
 
@@ -75,18 +77,39 @@ class GameState {
   }
 
   async saveGameState() {
-    for (let listener of this.updateListeners) listener();
+    if (this.saving) return;
+    this.saving = true;
 
-    await fs.writeFile(
-      "gameState.json",
-      JSON.stringify(this.gameState, null, 2)
-    );
+    try {
+      try {
+        for (let listener of this.updateListeners) listener();
+      } catch (e) {
+        console.log(
+          "En error happened while updating an 'saveGameState' listener! Error:",
+          e
+        );
+      }
 
-    if (this.gameState.config.advancedHistory)
-      fs.writeFile(
-        "history/" + Date.now() + ".json",
+      await fs.writeFile(
+        "gameState.json",
         JSON.stringify(this.gameState, null, 2)
       );
+
+      if (this.gameState.config.advancedHistory)
+        fs.writeFile(
+          "history/" + Date.now() + ".json",
+          JSON.stringify(this.gameState, null, 2)
+        );
+    } catch (e) {
+      console.log(
+        "An error happened while saving the updated gameState! Stopping the server! Error:",
+        e
+      );
+
+      process.exit();
+    }
+
+    this.saving = false;
   }
 }
 

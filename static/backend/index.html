@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team-Hunt Backend</title>
+    <link rel="stylesheet" href="../lib/main.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <m-overwrite-container>
+      <div id="mainContent">
+        <t-box class="mainBox">
+          <t-list-content>
+            <t-text-box> Spiel starten </t-text-box>
+            <div class="input-wrap">
+              <m-button id="startButton">Start</m-button>
+            </div>
+          </t-list-content>
+        </t-box>
+        <t-box class="mainBox">
+          <t-list-content>
+            <t-text-box> Spiel stoppen </t-text-box>
+            <div class="input-wrap">
+              <m-button id="stopButton">Stop</m-button>
+            </div>
+          </t-list-content>
+        </t-box>
+        <t-box class="mainBox">
+          <t-list-content>
+            <t-text-box> Fake Location Amount </t-text-box>
+            <div class="input-wrap">
+              <m-text-input
+                number="true"
+                placeholder="Value"
+                id="fakeLocationAmount"
+              ></m-text-input>
+            </div>
+          </t-list-content>
+        </t-box>
+        <t-box class="mainBox">
+          <t-list-content>
+            <t-text-box> Reveal Captures </t-text-box>
+            <div class="input-wrap">
+              <m-checkbox></m-checkbox>
+            </div>
+          </t-list-content>
+        </t-box>
+        <t-box class="mainBox">
+          <t-list-content>
+            <t-text-box> Advanced History </t-text-box>
+            <div class="input-wrap">
+              <m-checkbox></m-checkbox>
+            </div>
+          </t-list-content>
+        </t-box>
+        <t-box class="mainBox">
+          <t-list-content>
+            <t-text-box> Teams Timeout On Capture </t-text-box>
+            <div class="input-wrap">
+              <m-text-input number="true" placeholder="Value"></m-text-input>
+            </div>
+          </t-list-content>
+        </t-box>
+        <t-box class="mainBox">
+          <t-list-content>
+            <t-text-box> Location Reveal Interval </t-text-box>
+            <div class="input-wrap">
+              <m-text-input number="true" placeholder="Value"></m-text-input>
+            </div>
+          </t-list-content>
+        </t-box>
+      </div>
+    </m-overwrite-container>
+    <script src="main.js" type="module"></script>
+  </body>
+</html>

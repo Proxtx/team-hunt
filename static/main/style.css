@@ -58,7 +58,7 @@
   transform: rotate(180deg);
 }
 
-#buttonsWrap {
+#fakeLocationButtonsWrap {
   display: flex;
   padding: var(--largeContentSpacing);
   flex-direction: row;

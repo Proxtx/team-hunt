@@ -48,7 +48,20 @@ const updateInitBox = () => {
   initTeamId.innerText = Number(gameState.team.teamId) + 1;
 };
 
+const catchTextWrap = document.getElementById("catchTextWrap");
+const fakeLocationsButtonsWrap = document.getElementById(
+  "fakeLocationButtonsWrap"
+);
+
 const updateMainBox = () => {
   updateMaps();
   renderTeams(mainTeamsWrap);
+
+  if (gameState.team.team.role == "hunter") {
+    catchTextWrap.style.display = "none";
+    fakeLocationsButtonsWrap.style.display = "none";
+  } else {
+    catchTextWrap.style.display = "block";
+    fakeLocationsButtonsWrap.style.display = "block";
+  }
 };

@@ -26,8 +26,6 @@ export class Component {
       console.log("Map API not available. Waiting.");
       await new Promise((r) => setTimeout(r, 10));
     }
-    console.log("Map API available");
-
     mapboxgl.accessToken =
       "pk.eyJ1IjoicHJveHR4IiwiYSI6ImNsNXF5dm9mZTBpdTgzanA4bXAxZGxqajIifQ.ardzxffHpMXyhvSjlC-gAw"; //TODO: fetch from config
     this.map = new mapboxgl.Map({
@@ -67,8 +65,6 @@ export class Component {
         return false;
       return true;
     });
-
-    if (this.lastAvailableLocations.length == availableLocations.length) return;
 
     this.lastAvailableLocations = availableLocations;
 

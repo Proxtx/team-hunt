@@ -1,12 +1,17 @@
 import { rebuild } from "/modules/compare/main.js";
 import { update } from "./gameStateManagement.js";
 import { meta } from "../lib/apiLoader.js";
+import { hashObj } from "../lib/hash.js";
 
 export const pwd = cookie.pwd;
 
 export const username = cookie.username;
 
 export let gameState = {};
+
+export const getGameStateHash = () => {
+  return { success: true, hash: hashObj(gameState) };
+};
 
 export const updateGameState = (rebuildUpdate) => {
   if (!connectionCheckLoopRunning) {

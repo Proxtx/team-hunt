@@ -4,13 +4,16 @@
 }
 
 :host,
-:root {
+:root,
+m-overwrite-container {
   --backgroundColor: #000000;
   --contrastColor: #ffffff;
   --borderColor: #4f4f4f;
   --contentSpacing: 9px;
   --largeContentSpacing: 20px;
   --accentColor: #2d2aff;
+  --greyText: var(--contrastColor);
+  --grey: var(--contrastColor);
 }
 
 body {

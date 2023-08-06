@@ -13,7 +13,6 @@ export const genHandler = (type) => {
           if (gameState.gameState.users[username]) {
             clients[username] = {
               module,
-              gameState: await module.gameState,
             };
             updateUser(username);
           } else console.log("Client with unknown username.");
@@ -26,7 +25,10 @@ export const genHandler = (type) => {
 };
 
 export const send = async (user, method, ...args) => {
-  if (!clients[user]) return;
+  if (!clients[user]) {
+    console.log("Cant send data to user since the client does not exist");
+    return;
+  }
   try {
     let result = await clients[user].module[method](...args);
     if (!result || !result.success) delete clients[user];

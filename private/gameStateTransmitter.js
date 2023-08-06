@@ -1,8 +1,26 @@
 import { gameState } from "./gameState.js";
 import { clients, send } from "./clients.js";
 import { compare } from "@proxtx/compare";
+import { hash } from "../static/lib/hash.js";
 
-const sendUpdates = () => {};
+let gameStateHashes = [];
+
+const sendUpdates = () => {
+  for (let client in clients) updateUser(client);
+};
+
+const getFittingGameState = (searchHash) => {
+  for (let gameState of gameStateHashes) {
+    if (hash(gameState) == searchHash) return gameState;
+  }
+
+  return "";
+};
+
+const appendGameState = (gameState) => {
+  gameStateHashes.push(gameState);
+  if (gameStateHashes.length > 100) gameStateHashes.shift();
+};
 
 export const updateUser = async (username) => {
   if (!clients[username])
@@ -10,30 +28,37 @@ export const updateUser = async (username) => {
       `Received a game update but ${username} does not seem to be connected to the server.`
     );
 
-  try {
-    const data = getUserData(username);
+  /*if (clients[username].updating) {
+    console.log(
+      "Did not update user because an update is currently happening."
+    );
+  }
 
-    if (JSON.stringify(data) == JSON.stringify(clients[username].gameState))
-      return;
+  clients[username].updating = true;*/
+
+  try {
+    const data = JSON.stringify(getUserData(username));
 
     let exitCount = 0;
     let res;
+
     do {
       if (res)
         console.log("Was unable to send gameStateUpdate to client: ", username);
+
+      let clientHash = await send(username, "getGameStateHash");
+      if (data == getFittingGameState(clientHash)) return;
+
       res = await send(
         username,
         "updateGameState",
-        compare(
-          res ? "" : JSON.stringify(clients[username].gameState),
-          JSON.stringify(data)
-        )
+        compare(res ? "" : getFittingGameState(clientHash.hash), data)
       );
 
       exitCount++;
     } while (exitCount < 5 && !res.transmitSuccess);
 
-    if (res.transmitSuccess) clients[username].gameState = data;
+    if (res.transmitSuccess) appendGameState(data);
   } catch (e) {
     console.log(
       "An error happened while updating a clients gameState. Username:",
@@ -42,6 +67,8 @@ export const updateUser = async (username) => {
       e
     );
   }
+
+  //if (clients[username]) clients[username].updating = false;
 };
 
 const getUserData = (username) => {
@@ -63,9 +90,9 @@ const getUserData = (username) => {
     teams: gameState.gameState.teams,
 
     possibleLocatorLocations: gameState.gameState.runnerInformation
-      .locatorLocation
+      .publicLocatorLocation
       ? gameState.gameState.runnerInformation.fakeLocations.concat(
-          gameState.gameState.runnerInformation.locatorLocation
+          gameState.gameState.runnerInformation.publicLocatorLocation
         )
       : gameState.gameState.runnerInformation.fakeLocations,
   };
