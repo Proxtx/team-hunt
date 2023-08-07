@@ -63,7 +63,18 @@ class GameState {
   constructor() {}
 
   async init() {
-    this.gameState = JSON.parse(await fs.readFile("gameState.json", "utf8"));
+    try {
+      this.gameState = JSON.parse(await fs.readFile("gameState.json", "utf8"));
+    } catch (e) {
+      console.log(
+        "Error reading gameState.json! Creating a new GameState. Error:",
+        e
+      );
+
+      await this.overwriteGameState(
+        JSON.parse(JSON.stringify(defaultGameState))
+      );
+    }
     if (!this.gameState.available) {
       await this.overwriteGameState(
         JSON.parse(JSON.stringify(defaultGameState))

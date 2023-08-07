@@ -1,6 +1,18 @@
 const locationMarkerImage = document.createElement("img");
 locationMarkerImage.src = "/lib/images/locationMarkerImage.svg";
 
+const possibleLocationHunterImage = document.createElement("img");
+possibleLocationHunterImage.src = "/lib/images/circle.svg";
+possibleLocationHunterImage.style.width = "15px";
+
+const possibleLocationRunnerImage = document.createElement("img");
+possibleLocationRunnerImage.src = "/lib/images/circleOutline.svg";
+possibleLocationRunnerImage.style.width = "15px";
+
+const actualLocatorLocationRunner = document.createElement("img");
+actualLocatorLocationRunner.src = "/lib/images/locatorLocation.svg";
+actualLocatorLocationRunner.style.width = "15px";
+
 const objectObjects = {
   locationMarker: {
     anchor: "center",
@@ -10,11 +22,39 @@ const objectObjects = {
     scale: 2,
     popUp: '<t-location-pop-up name="$LOCATION_NAME"></t-location-pop-up>',
   },
+
+  possibleLocationHunter: {
+    anchor: "center",
+    color: "#2d2aff",
+    element: possibleLocationHunterImage,
+    rotationAlignment: "map",
+    scale: 2,
+    popUp: "<h3>Mögliche Locator Location.</h3>",
+  },
+
+  possibleLocationRunner: {
+    anchor: "center",
+    color: "#2d2aff",
+    element: possibleLocationRunnerImage,
+    rotationAlignment: "map",
+    scale: 4,
+    popUp: "<h3>Mögliche Locator Location für die Jäger</h3>",
+  },
+
+  actualLocatorLocationRunner: {
+    anchor: "center",
+    color: "blue",
+    element: actualLocatorLocationRunner,
+    rotationAlignment: "map",
+    scale: 2,
+    popUp: "<h3>Locator Location</h3>",
+  },
 };
 
 export class Component {
   currentMarkers = [];
   lastAvailableLocations = [];
+  oneTimeClickListeners = [];
 
   constructor(options) {
     this.document = options.shadowDom;
@@ -34,6 +74,14 @@ export class Component {
       center: [6.958811, 50.93591], // TODO: fetch from server
       zoom: 12.8, // TODO: fetch from server
     });
+
+    this.map.on("click", (e) => {
+      for (let listener of this.oneTimeClickListeners) {
+        listener([e.lngLat.lat, e.lngLat.lng]);
+      }
+
+      this.oneTimeClickListeners = [];
+    });
   }
 
   clearAllMarkers() {
@@ -51,6 +99,35 @@ export class Component {
     this.clearAllMarkers();
 
     this.updateLocationMarkers(gameState);
+    this.updateLocatorMarkers(gameState);
+  }
+
+  updateLocatorMarkers(gameState) {
+    for (let location of gameState.possibleLocatorLocations) {
+      location = [...location];
+      let cfg = {
+        ...(gameState.team.team.role == "hunter"
+          ? objectObjects.possibleLocationHunter
+          : objectObjects.possibleLocationRunner),
+      };
+      cfg.element = cfg.element.cloneNode();
+      let marker = new mapboxgl.Marker(cfg)
+        .setLngLat(location.reverse().map((v) => Number(v)))
+        .setPopup(new mapboxgl.Popup().setHTML(cfg.popUp));
+      this.addMarker(marker);
+    }
+
+    if (gameState.team.team.role == "runner") {
+      {
+        let cfg = { ...objectObjects.actualLocatorLocationRunner };
+        let location = [...gameState.runnerInformation.locatorLocation];
+        cfg.element = cfg.element.cloneNode();
+        let marker = new mapboxgl.Marker(cfg)
+          .setLngLat(location.reverse().map((v) => Number(v)))
+          .setPopup(new mapboxgl.Popup().setHTML(cfg.popUp));
+        this.addMarker(marker);
+      }
+    }
   }
 
   updateLocationMarkers(gameState) {

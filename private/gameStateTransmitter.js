@@ -91,9 +91,9 @@ const getUserData = (username) => {
 
     possibleLocatorLocations: gameState.gameState.runnerInformation
       .publicLocatorLocation
-      ? gameState.gameState.runnerInformation.fakeLocations.concat(
-          gameState.gameState.runnerInformation.publicLocatorLocation
-        )
+      ? gameState.gameState.runnerInformation.fakeLocations.concat([
+          gameState.gameState.runnerInformation.publicLocatorLocation,
+        ])
       : gameState.gameState.runnerInformation.fakeLocations,
   };
 

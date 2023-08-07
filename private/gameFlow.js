@@ -1,4 +1,5 @@
 import { gameState } from "./gameState.js";
+import { updateLocatorLocationLoop } from "./locator.js";
 
 export const startGame = async () => {
   if (gameState.gameState.liveInformation.state != "preparing")
@@ -12,7 +13,7 @@ export const startGame = async () => {
     if (team.role == "runner") continue;
     team.teamsTimeoutOnCapture = Date.now();
   }
-  //TODO: Reveal Location
+  revealLocation();
   gameState.gameState.liveInformation.state = "running";
 
   appendLog("Game started.");
@@ -32,3 +33,33 @@ export const stopGame = async () => {
 export const appendLog = async (text) => {
   gameState.gameState.liveInformation.log.push({ text, time: Date.now() });
 };
+
+export const revealLocation = async () => {
+  gameState.gameState.runnerInformation.publicLocatorLocation =
+    gameState.gameState.runnerInformation.locatorLocation;
+  gameState.gameState.runnerInformation.fakeLocations =
+    gameState.gameState.runnerInformation.pendingFakeLocations;
+  gameState.gameState.liveInformation.lastLocationReveal = Date.now();
+
+  await gameState.saveGameState();
+};
+
+const locationRevealLoop = async () => {
+  if (!gameState.gameState.liveInformation.lastLocationReveal)
+    await revealLocation();
+
+  if (
+    gameState.gameState.config.locationRevealInterval -
+      (Date.now() - gameState.gameState.liveInformation.lastLocationReveal) <=
+    0
+  )
+    await revealLocation();
+  setTimeout(
+    () => locationRevealLoop(),
+    gameState.gameState.config.locationRevealInterval -
+      (Date.now() - gameState.gameState.liveInformation.lastLocationReveal)
+  );
+};
+
+locationRevealLoop();
+updateLocatorLocationLoop();

@@ -3,6 +3,7 @@ import { setLogs } from "./log.js";
 import { updateMaps } from "./map.js";
 import { updateTime } from "./time.js";
 import { renderTeams } from "./teams.js";
+import { updateButtons } from "./fakeLocationPlacement.js";
 
 export const update = () => {
   updateTime();
@@ -49,19 +50,20 @@ const updateInitBox = () => {
 };
 
 const catchTextWrap = document.getElementById("catchTextWrap");
-const fakeLocationsButtonsWrap = document.getElementById(
+const fakeLocationButtonsWrap = document.getElementById(
   "fakeLocationButtonsWrap"
 );
 
 const updateMainBox = () => {
   updateMaps();
   renderTeams(mainTeamsWrap);
+  updateButtons();
 
   if (gameState.team.team.role == "hunter") {
     catchTextWrap.style.display = "none";
-    fakeLocationsButtonsWrap.style.display = "none";
+    fakeLocationButtonsWrap.style.display = "none";
   } else {
     catchTextWrap.style.display = "block";
-    fakeLocationsButtonsWrap.style.display = "block";
+    fakeLocationButtonsWrap.style.display = "flex";
   }
 };
