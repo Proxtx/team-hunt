@@ -13,6 +13,10 @@ const actualLocatorLocationRunner = document.createElement("img");
 actualLocatorLocationRunner.src = "/lib/images/locatorLocation.svg";
 actualLocatorLocationRunner.style.width = "15px";
 
+const fakeLocationRunner = document.createElement("img");
+fakeLocationRunner.src = "/lib/images/fakeLocation.svg";
+fakeLocationRunner.style.width = "15px";
+
 const objectObjects = {
   locationMarker: {
     anchor: "center",
@@ -48,6 +52,14 @@ const objectObjects = {
     rotationAlignment: "map",
     scale: 2,
     popUp: "<h3>Locator Location</h3>",
+  },
+
+  fakeLocationRunner: {
+    anchor: "center",
+    element: fakeLocationRunner,
+    rotationAlignment: "map",
+    scale: 2,
+    popUp: "<h3>Fake Location $INDEX</h3>",
   },
 };
 
@@ -126,6 +138,23 @@ export class Component {
           .setLngLat(location.reverse().map((v) => Number(v)))
           .setPopup(new mapboxgl.Popup().setHTML(cfg.popUp));
         this.addMarker(marker);
+
+        for (let locationIndex in gameState.runnerInformation
+          .pendingFakeLocations) {
+          let cfg = { ...objectObjects.fakeLocationRunner };
+          location = [
+            ...gameState.runnerInformation.pendingFakeLocations[locationIndex],
+          ];
+          cfg.element = cfg.element.cloneNode();
+          let marker = new mapboxgl.Marker(cfg)
+            .setLngLat(location.reverse().map((v) => Number(v)))
+            .setPopup(
+              new mapboxgl.Popup().setHTML(
+                cfg.popUp.replace("$INDEX", Number(locationIndex) + 1)
+              )
+            );
+          this.addMarker(marker);
+        }
       }
     }
   }

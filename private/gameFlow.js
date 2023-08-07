@@ -35,10 +35,12 @@ export const appendLog = async (text) => {
 };
 
 export const revealLocation = async () => {
-  gameState.gameState.runnerInformation.publicLocatorLocation =
-    gameState.gameState.runnerInformation.locatorLocation;
-  gameState.gameState.runnerInformation.fakeLocations =
-    gameState.gameState.runnerInformation.pendingFakeLocations;
+  gameState.gameState.runnerInformation.publicLocatorLocation = [
+    ...gameState.gameState.runnerInformation.locatorLocation,
+  ];
+  gameState.gameState.runnerInformation.fakeLocations = [
+    ...gameState.gameState.runnerInformation.pendingFakeLocations,
+  ];
   gameState.gameState.liveInformation.lastLocationReveal = Date.now();
 
   await gameState.saveGameState();
@@ -59,6 +61,23 @@ const locationRevealLoop = async () => {
     gameState.gameState.config.locationRevealInterval -
       (Date.now() - gameState.gameState.liveInformation.lastLocationReveal)
   );
+};
+
+export const fakeLocation = async (index, location) => {
+  let locationIndex = 0;
+  while (locationIndex < index) {
+    if (
+      !gameState.gameState.runnerInformation.pendingFakeLocations[locationIndex]
+    )
+      gameState.gameState.runnerInformation.pendingFakeLocations[
+        locationIndex
+      ] = location;
+
+    locationIndex++;
+  }
+  gameState.gameState.runnerInformation.pendingFakeLocations[index] = location;
+
+  await gameState.saveGameState();
 };
 
 locationRevealLoop();

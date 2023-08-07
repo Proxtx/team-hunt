@@ -2,6 +2,9 @@ import { gameState } from "./receiver.js";
 
 const timeText = document.getElementById("timeText");
 const timeIndicator = document.getElementById("timeIndicator");
+const locationRevealCountdown = document.getElementById(
+  "locationRevealCountdown"
+);
 
 const getTimeData = () => {
   let caughtTimeout = Date.now() - gameState.team.team.caughtTimeout;
@@ -60,12 +63,23 @@ export const updateTime = () => {
   try {
     applyCurrentStatus();
     timeIndicator.style.width = getTimeData().time * 100 + "%";
+    updateLocationRevealCountdown();
   } catch (e) {
     console.log(
       "Timeupdate failed. Probably because the gameState was not received yet.",
       e
     );
   }
+};
+
+const updateLocationRevealCountdown = () => {
+  let time =
+    gameState.config.locationRevealInterval -
+    (Date.now() - gameState.liveInformation.lastLocationReveal);
+  let minutes = Math.floor(time / (1000 * 60));
+  let seconds = Math.floor((time % (1000 * 60)) / 1000);
+  if (seconds < 10) seconds = "0" + seconds;
+  locationRevealCountdown.innerText = `${minutes}:${seconds}`;
 };
 
 const updateTimeLoop = () => {

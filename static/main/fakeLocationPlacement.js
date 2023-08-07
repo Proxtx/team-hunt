@@ -1,4 +1,5 @@
 import { gameState } from "./receiver.js";
+import { gameFlow } from "../lib/apiLoader.js";
 
 const fakeLocationButtonsWrap = document.getElementById(
   "fakeLocationButtonsWrap"
@@ -40,6 +41,23 @@ const generateEventListener = (buttonIndex) => {
       fakeLocationButtonsWrap.children[childIndex].style.pointerEvents = "none";
     }
 
-    bigMap.component.oneTimeClickListeners.push((location) => {});
+    bigMap.component.oneTimeClickListeners.push(async (location) => {
+      await gameFlow.placeFakeLocation(
+        cookie.pwd,
+        cookie.username,
+        buttonIndex,
+        location
+      );
+
+      for (
+        let childIndex = 0;
+        childIndex < fakeLocationButtonsWrap.children.length;
+        childIndex++
+      ) {
+        fakeLocationButtonsWrap.children[childIndex].style.opacity = 1;
+        fakeLocationButtonsWrap.children[childIndex].style.pointerEvents =
+          "all";
+      }
+    });
   };
 };

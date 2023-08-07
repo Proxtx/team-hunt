@@ -9,10 +9,27 @@ const currentGameState = (await backendApi.getCurrentGameState(cookie.adminPwd))
 const startButton = document.getElementById("startButton");
 const stopButton = document.getElementById("stopButton");
 const fakeLocationAmount = document.getElementById("fakeLocationAmount");
+const revealCaptures = document.getElementById("revealCaptures");
+const advancedHistory = document.getElementById("advancedHistory");
+const teamsTimeoutOnCapture = document.getElementById("teamsTimeoutOnCapture");
+const locationRevealInterval = document.getElementById(
+  "locationRevealInterval"
+);
 
 await uiBuilder.ready(fakeLocationAmount);
+await uiBuilder.ready(revealCaptures);
+await uiBuilder.ready(advancedHistory);
+await uiBuilder.ready(teamsTimeoutOnCapture);
+await uiBuilder.ready(locationRevealInterval);
 
-fakeLocationAmount.component.value = currentGameState.config.fakeLocationAmount;
+fakeLocationAmount.component.checked =
+  currentGameState.config.fakeLocationAmount;
+revealCaptures.component.checked = currentGameState.config.revealCaptures;
+advancedHistory.component.value = currentGameState.config.advancedHistory;
+teamsTimeoutOnCapture.component.value =
+  currentGameState.config.teamsTimeoutOnCapture;
+locationRevealInterval.component.value =
+  currentGameState.config.locationRevealInterval;
 
 startButton.addEventListener("click", async () => {
   await backendApi.startGame(cookie.adminPwd);
@@ -29,5 +46,37 @@ fakeLocationAmount.addEventListener("change", () => {
     cookie.adminPwd,
     "fakeLocationAmount",
     Number(fakeLocationAmount.component.value)
+  );
+});
+
+revealCaptures.addEventListener("change", () => {
+  backendApi.updateConfig(
+    cookie.adminPwd,
+    "revealCaptures",
+    revealCaptures.component.checked
+  );
+});
+
+advancedHistory.addEventListener("change", () => {
+  backendApi.updateConfig(
+    cookie.adminPwd,
+    "advancedHistory",
+    advancedHistory.component.checked
+  );
+});
+
+teamsTimeoutOnCapture.addEventListener("change", () => {
+  backendApi.updateConfig(
+    cookie.adminPwd,
+    "teamsTimeoutOnCapture",
+    Number(teamsTimeoutOnCapture.component.value)
+  );
+});
+
+locationRevealInterval.addEventListener("change", () => {
+  backendApi.updateConfig(
+    cookie.adminPwd,
+    "locationRevealInterval",
+    Number(locationRevealInterval.component.value)
   );
 });

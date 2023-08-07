@@ -49,7 +49,7 @@ button {
   background-color: white;
   padding: var(--contentSpacing);
   border: none;
-  border-radius: none;
+  border-radius: 0;
 }
 
 .mapboxgl-popup-content {
