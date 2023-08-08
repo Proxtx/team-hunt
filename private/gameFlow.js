@@ -88,5 +88,26 @@ export const fakeLocation = async (index, location) => {
   await gameState.saveGameState();
 };
 
+export const changeRunner = async (newRunnerTeamIndex) => {
+  for (let teamIndex in gameState.gameState.teams) {
+    if (gameState.gameState.teams[teamIndex].role == "runner") {
+      gameState.gameState.teams[teamIndex].caughtTimeout = Date.now();
+      gameState.gameState.teams[teamIndex].role = "hunter";
+    } else if (teamIndex == newRunnerTeamIndex) {
+      gameState.gameState.teams[teamIndex].role = "runner";
+    } else {
+      gameState.gameState.teams[teamIndex].teamsTimeoutOnCapture = Date.now();
+    }
+  }
+
+  appendLog(
+    "Team " + (Number(newRunnerTeamIndex) + 1) + " ist nun das Läufer Team!"
+  );
+
+  await revealLocation();
+
+  return { success: true };
+};
+
 locationRevealLoop();
 updateLocationsLoop();

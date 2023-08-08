@@ -2,6 +2,7 @@ import { rebuild } from "/modules/compare/main.js";
 import { update } from "./gameStateManagement.js";
 import { meta } from "../lib/apiLoader.js";
 import { hashObj } from "../lib/hash.js";
+import * as _ from "./captureLogic.js";
 
 export const pwd = cookie.pwd;
 
