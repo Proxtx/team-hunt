@@ -38,8 +38,8 @@ const defaultGameState = {
     revealCaptures: false,
     locations: config.locations,
     advancedHistory: false,
-    teamsTimeoutOnCapture: 1000 * 60 * 3,
-    locationRevealInterval: 1000 * 60 * 5,
+    teamsTimeoutOnCapture: 1000 * 60 * 1,
+    locationRevealInterval: 1000 * 60 * 3,
     gameDuration: 60 * 1000 * 60 * 2,
   },
 

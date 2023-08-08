@@ -1,5 +1,6 @@
 const locationMarkerImage = document.createElement("img");
 locationMarkerImage.src = "/lib/images/locationMarkerImage.svg";
+locationMarkerImage.style.width = "20px";
 
 const possibleLocationHunterImage = document.createElement("img");
 possibleLocationHunterImage.src = "/lib/images/circle.svg";
@@ -19,7 +20,7 @@ fakeLocationRunner.style.width = "15px";
 
 const playerImage = document.createElement("img");
 playerImage.src = "/lib/images/player.svg";
-playerImage.style.width = "15px";
+playerImage.style.width = "18px";
 
 const objectObjects = {
   locationMarker: {

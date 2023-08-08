@@ -1,5 +1,10 @@
 import * as _ from "../lib/componentLoader.js";
 import { connect } from "../lib/wsConnectionHandler.js";
+import { meta } from "../lib/apiLoader.js";
+
+if (!(await meta.available(cookie.pwd, cookie.username))) {
+  location.pathname = "/signup";
+}
 
 await framework.ws.addModule("/main/receiver.js", "receiver");
 

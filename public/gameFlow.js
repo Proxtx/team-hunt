@@ -1,6 +1,11 @@
 import { gameState } from "../private/gameState.js";
 import { auth } from "./meta.js";
-import { fakeLocation, changeRunner } from "../private/gameFlow.js";
+import {
+  fakeLocation,
+  changeRunner,
+  claimLocation,
+  createUser,
+} from "../private/gameFlow.js";
 
 export const placeFakeLocation = async (pwd, username, index, location) => {
   if (!auth(pwd)) return { success: false, error: 1 };
@@ -24,4 +29,15 @@ export const caught = async (pwd, username, index) => {
   )
     return { success: false, error: 1 };
   return await changeRunner(index);
+};
+
+export const collectLocation = async (pwd, username, location) => {
+  if (!auth(pwd)) return { success: false, error: 1 };
+  if (getTeam(username).role != "runner") return { success: false, error: 1 };
+  return await claimLocation(location);
+};
+
+export const signUp = async (pwd, username, team) => {
+  if (!auth(pwd)) return { success: false, error: 1 };
+  return await createUser(username, team);
 };
