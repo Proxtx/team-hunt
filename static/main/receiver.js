@@ -32,6 +32,22 @@ export const updateGameState = (rebuildUpdate) => {
   }
 };
 
+export const getLocation = async () => {
+  let location = await new Promise((r) =>
+    navigator.geolocation.getCurrentPosition(r, r)
+  );
+
+  if (location.code) {
+    return { success: true, locationSuccess: false };
+  }
+
+  return {
+    success: true,
+    locationSuccess: true,
+    location: [location.coords.latitude, location.coords.longitude],
+  };
+};
+
 let connectionCheckLoopRunning = false;
 let confirmed = false;
 export const confirmConnection = async () => {

@@ -20,7 +20,7 @@ export const stopGame = async (pwd) => {
 export const updateConfig = async (pwd, attribute, value) => {
   if (!auth(pwd)) return { success: false, error: 1 };
   gameState.gameState.config[attribute] = value;
+  gameFlow.appendLog("Updated Rules.");
   await gameState.saveGameState();
-  await gameFlow.appendLog("Updated Rules.");
   return { success: true };
 };

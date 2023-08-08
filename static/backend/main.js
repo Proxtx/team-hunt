@@ -22,10 +22,9 @@ await uiBuilder.ready(advancedHistory);
 await uiBuilder.ready(teamsTimeoutOnCapture);
 await uiBuilder.ready(locationRevealInterval);
 
-fakeLocationAmount.component.checked =
-  currentGameState.config.fakeLocationAmount;
+fakeLocationAmount.component.value = currentGameState.config.fakeLocationAmount;
 revealCaptures.component.checked = currentGameState.config.revealCaptures;
-advancedHistory.component.value = currentGameState.config.advancedHistory;
+advancedHistory.component.checked = currentGameState.config.advancedHistory;
 teamsTimeoutOnCapture.component.value =
   currentGameState.config.teamsTimeoutOnCapture;
 locationRevealInterval.component.value =

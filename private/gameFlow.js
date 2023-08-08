@@ -1,5 +1,5 @@
 import { gameState } from "./gameState.js";
-import { updateLocatorLocationLoop } from "./locator.js";
+import { updateLocationsLoop } from "./location.js";
 
 export const startGame = async () => {
   if (gameState.gameState.liveInformation.state != "preparing")
@@ -43,6 +43,8 @@ export const revealLocation = async () => {
   ];
   gameState.gameState.liveInformation.lastLocationReveal = Date.now();
 
+  appendLog("Location reveal");
+
   await gameState.saveGameState();
 };
 
@@ -65,6 +67,12 @@ const locationRevealLoop = async () => {
 
 export const fakeLocation = async (index, location) => {
   let locationIndex = 0;
+  if (
+    gameState.gameState.runnerInformation.pendingFakeLocations.length >
+    gameState.gameState.config.fakeLocationAmount
+  )
+    gameState.gameState.runnerInformation.pendingFakeLocations.length =
+      gameState.gameState.config.fakeLocationAmount;
   while (locationIndex < index) {
     if (
       !gameState.gameState.runnerInformation.pendingFakeLocations[locationIndex]
@@ -81,4 +89,4 @@ export const fakeLocation = async (index, location) => {
 };
 
 locationRevealLoop();
-updateLocatorLocationLoop();
+updateLocationsLoop();
