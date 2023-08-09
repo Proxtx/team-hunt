@@ -1,8 +1,26 @@
 import { gameState } from "./gameState.js";
 import { clients, send } from "./clients.js";
+import { auth } from "../public/admin/meta.js";
+
+let lastLocatorLocation = {};
+let lastId = 0;
 
 export const getLocatorLocation = async () => {
-  return { success: true, location: [50.937658, 6.957521] };
+  if (lastId == lastLocatorLocation.id || !lastLocatorLocation)
+    console.log("Locator Location has not been updated!");
+  else lastId = lastLocatorLocation.id;
+  return { success: true, location: lastLocatorLocation.location || [0, 0] };
+};
+
+export const locatorReqHandler = (req, res) => {
+  if (auth(req.params.pwd)) {
+    lastLocatorLocation = {
+      id: Math.floor(Math.random() * 100000),
+      location: [req.params.lat, req.params.long],
+    };
+  }
+
+  res.status(200).send();
 };
 
 let pendingLocations;

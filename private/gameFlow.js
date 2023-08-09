@@ -40,29 +40,29 @@ export const revealLocation = async () => {
     console.log(
       "Was unable to reaveal location due to there being no locator location!"
     );
+
     return;
   }
 
   if (gameState.gameState.liveInformation.state != "running") {
     console.log("Did not update location because the game is not running");
-    return;
+  } else {
+    gameState.gameState.runnerInformation.publicLocatorLocation = [
+      ...gameState.gameState.runnerInformation.locatorLocation,
+    ];
+    gameState.gameState.runnerInformation.fakeLocations = [
+      ...gameState.gameState.runnerInformation.pendingFakeLocations,
+    ];
+    gameState.gameState.liveInformation.publiclyCapturedLocations =
+      gameState.gameState.liveInformation.publiclyCapturedLocations.concat(
+        gameState.gameState.runnerInformation.capturedLocations
+      );
+    gameState.gameState.runnerInformation.capturedLocations = [];
+
+    appendLog("Location reveal");
   }
 
-  gameState.gameState.runnerInformation.publicLocatorLocation = [
-    ...gameState.gameState.runnerInformation.locatorLocation,
-  ];
-  gameState.gameState.runnerInformation.fakeLocations = [
-    ...gameState.gameState.runnerInformation.pendingFakeLocations,
-  ];
-  gameState.gameState.liveInformation.publiclyCapturedLocations =
-    gameState.gameState.liveInformation.publiclyCapturedLocations.concat(
-      gameState.gameState.runnerInformation.capturedLocations
-    );
-  gameState.gameState.runnerInformation.capturedLocations = [];
-
   gameState.gameState.liveInformation.lastLocationReveal = Date.now();
-
-  appendLog("Location reveal");
 
   await gameState.saveGameState();
 };
