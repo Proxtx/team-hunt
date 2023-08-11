@@ -20,6 +20,7 @@ bigMapWrap.style.display = "none";
 downArrowsInnerWrap.addEventListener("click", () => {
   miniMapWrap.style.display = "none";
   bigMapWrap.style.display = "block";
+  bigMap.component.map.resize();
 });
 
 upArrowsInnerWrap.addEventListener("click", () => {

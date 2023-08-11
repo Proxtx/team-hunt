@@ -3,6 +3,15 @@ const logList = document.getElementById("logList");
 let knownLog = [];
 let audio = new Audio("/lib/mp3/notification.mp3");
 
+let initialPlay = false;
+
+document.addEventListener("click", () => {
+  if (!initialPlay) {
+    audio.play();
+    initialPlay = true;
+  }
+});
+
 export const setLogs = async (log) => {
   if (log.length > knownLog.length) {
     audio.play();

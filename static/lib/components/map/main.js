@@ -120,10 +120,10 @@ export class Component {
     this.currentMarkers.push(marker);
   }
 
-  updateMap(gameState) {
+  updateMap(gameState, addLocationPopUps = true) {
     this.clearAllMarkers();
 
-    this.updateLocationMarkers(gameState);
+    this.updateLocationMarkers(gameState, addLocationPopUps);
     this.updateLocatorMarkers(gameState);
     this.updateTeamLocation(gameState);
   }
@@ -173,7 +173,7 @@ export class Component {
     }
   }
 
-  updateLocationMarkers(gameState) {
+  updateLocationMarkers(gameState, addPopUps = true) {
     let availableLocations = gameState.config.locations.filter((value) => {
       if (
         gameState.liveInformation.publiclyCapturedLocations.includes(value.name)
@@ -191,14 +191,14 @@ export class Component {
     for (let location of availableLocations) {
       let cfg = { ...objectObjects.locationMarker };
       cfg.element = cfg.element.cloneNode();
-      let marker = new mapboxgl.Marker(cfg)
-        .setLngLat(
-          location.location
-            .split(" ")
-            .reverse()
-            .map((v) => Number(v))
-        )
-        .setPopup(
+      let marker = new mapboxgl.Marker(cfg).setLngLat(
+        location.location
+          .split(" ")
+          .reverse()
+          .map((v) => Number(v))
+      );
+      if (addPopUps)
+        marker.setPopup(
           new mapboxgl.Popup().setHTML(
             cfg.popUp.replace("$LOCATION_NAME", location.name)
           )

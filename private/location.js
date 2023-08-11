@@ -1,15 +1,49 @@
 import { gameState } from "./gameState.js";
 import { clients, send } from "./clients.js";
 import { auth } from "../public/admin/meta.js";
+import { Life360 } from "./locatorLocation.js";
+import config from "@proxtx/config";
 
 let lastLocatorLocation = {};
 let lastId = 0;
 
+let life360 = new Life360(
+  config.life360.url,
+  config.life360.email,
+  config.life360.password
+);
+
+await life360.init();
+
 export const getLocatorLocation = async () => {
+  if (lastLocatorLocation.id == lastId) {
+    await new Promise(async (r) => {
+      setTimeout(r, 5000);
+      try {
+        await updateLocatorLocation();
+      } catch (e) {
+        console.log(
+          "An error occurred while updating the locator position through life360. Error:",
+          e
+        );
+      }
+    });
+  }
   if (lastId == lastLocatorLocation.id || !lastLocatorLocation)
     console.log("Locator Location has not been updated!");
   else lastId = lastLocatorLocation.id;
   return { success: true, location: lastLocatorLocation.location || [0, 0] };
+};
+
+const updateLocatorLocation = async () => {
+  let location = await life360.getMemberPosition(
+    config.life360.circleId,
+    config.life360.memberId
+  );
+  lastLocatorLocation = {
+    location: [location.latitude, location.longitude],
+    id: location.timestamp,
+  };
 };
 
 export const locatorReqHandler = (req, res) => {

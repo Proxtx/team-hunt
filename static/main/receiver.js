@@ -24,7 +24,6 @@ export const updateGameState = (rebuildUpdate) => {
   try {
     let parsedGameState = JSON.parse(newGameState);
     gameState = parsedGameState;
-    console.log(parsedGameState);
     update();
     return { success: true, transmitSuccess: true };
   } catch (e) {

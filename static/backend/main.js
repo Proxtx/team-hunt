@@ -1,5 +1,6 @@
 import * as _componentLoader from "../lib/componentLoader.js";
 import * as _materialLoader from "../lib/materialLoader.js";
+import * as _mapManagement from "./mapManagement.js";
 
 const backendApi = await framework.load("admin/backend.js");
 
