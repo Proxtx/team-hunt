@@ -42,21 +42,6 @@ export class Life360 {
   }
 
   async getMemberPosition(circleId, memberId) {
-    /*let f = new URLSearchParams();
-    f.append("type", "location");
-
-    console.log(
-      await request(
-        this.url + "circles/" + circleId + "/members/" + memberId + "/request",
-        {
-          type: "location",
-        },
-        this.auth,
-        "POST",
-        f
-      )
-    );*/
-
     let members = (
       await request(
         this.url + "circles/" + circleId + "/members",
@@ -72,10 +57,10 @@ export class Life360 {
   }
 }
 
-const request = async (url, body, auth, method = "POST", form) => {
+const request = async (url, body, auth, method = "POST") => {
   return await (
     await fetch(url, {
-      body: method == "POST" ? (form ? form : JSON.stringify(body)) : null,
+      body: method == "POST" ? JSON.stringify(body) : null,
       method,
       headers: {
         "Content-Type": "application/json",

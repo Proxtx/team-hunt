@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import config from "@proxtx/config";
 import process from "process";
 
-const defaultGameState = {
+export const defaultGameState = {
   available: true,
 
   teams: [

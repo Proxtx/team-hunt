@@ -43,20 +43,20 @@ const applyCurrentStatus = () => {
   switch (data.status) {
     case "caughtTimeout":
       timeText.innerText = "Gefangen!";
-      timeIndicator.style.backgroundColor = "red";
+      timeIndicator.style.backgroundColor = "#ce2d4f";
       break;
     case "teamsTimeoutOnCapture":
       timeText.innerText = "Balance Timeout";
-      timeIndicator.style.backgroundColor = "red";
+      timeIndicator.style.backgroundColor = "#ce2d4f";
       break;
     case "regular":
       timeText.innerText = "Zeit";
-      timeIndicator.style.backgroundColor = "white";
+      timeIndicator.style.backgroundColor = "var(--contrastColor)";
       break;
   }
 
   if (data.time > 0.5) timeText.style.color = "black";
-  else timeText.style.color = "white";
+  else timeText.style.color = "var(--contrastColor)";
 };
 
 export const updateTime = () => {

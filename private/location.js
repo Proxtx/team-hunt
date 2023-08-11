@@ -32,7 +32,11 @@ export const getLocatorLocation = async () => {
   if (lastId == lastLocatorLocation.id || !lastLocatorLocation)
     console.log("Locator Location has not been updated!");
   else lastId = lastLocatorLocation.id;
-  return { success: true, location: lastLocatorLocation.location || [0, 0] };
+  return {
+    success: true,
+    location: lastLocatorLocation.location ||
+      gameState.gameState.runnerInformation.locatorLocation || [0, 0],
+  };
 };
 
 const updateLocatorLocation = async () => {

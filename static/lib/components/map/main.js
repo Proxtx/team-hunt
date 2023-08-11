@@ -25,7 +25,6 @@ playerImage.style.width = "18px";
 const objectObjects = {
   locationMarker: {
     anchor: "center",
-    color: "white",
     element: locationMarkerImage,
     rotationAlignment: "map",
     scale: 2,

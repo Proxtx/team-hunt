@@ -9,6 +9,7 @@ const currentGameState = (await backendApi.getCurrentGameState(cookie.adminPwd))
 
 const startButton = document.getElementById("startButton");
 const stopButton = document.getElementById("stopButton");
+const resetButton = document.getElementById("resetButton");
 const fakeLocationAmount = document.getElementById("fakeLocationAmount");
 const revealCaptures = document.getElementById("revealCaptures");
 const advancedHistory = document.getElementById("advancedHistory");
@@ -38,6 +39,11 @@ startButton.addEventListener("click", async () => {
 
 stopButton.addEventListener("click", async () => {
   await backendApi.stopGame(cookie.adminPwd);
+  location.reload();
+});
+
+resetButton.addEventListener("click", async () => {
+  await backendApi.resetGame(cookie.adminPwd);
   location.reload();
 });
 

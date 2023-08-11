@@ -46,7 +46,7 @@ t-team-status {
 }
 
 button {
-  background-color: white;
+  background-color: var(--contrastColor);
   padding: var(--contentSpacing);
   border: none;
   border-radius: 0;
