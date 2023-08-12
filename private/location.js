@@ -19,6 +19,10 @@ export const setLocatorUserOverwrite = (username) => {
   locatorUserOverwrite = username;
 };
 
+export const getLocatorUserOverwrite = () => {
+  return locatorUserOverwrite;
+};
+
 await life360.init();
 
 export const getLocatorLocation = async () => {

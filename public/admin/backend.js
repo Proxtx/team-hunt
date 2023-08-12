@@ -1,5 +1,8 @@
 import { auth } from "./meta.js";
-import { setLocatorUserOverwrite } from "../../private/location.js";
+import {
+  setLocatorUserOverwrite,
+  getLocatorUserOverwrite,
+} from "../../private/location.js";
 import { gameState, defaultGameState } from "../../private/gameState.js";
 import * as gameFlow from "../../private/gameFlow.js";
 
@@ -50,4 +53,9 @@ export const appendCustomLog = async (pwd, message) => {
   gameFlow.appendLog(message);
   await gameState.saveGameState();
   return { success: true };
+};
+
+export const getUserOverwrite = (pwd) => {
+  if (!auth(pwd)) return { success: false, error: 1 };
+  return { success: true, overwrite: getLocatorUserOverwrite() };
 };
