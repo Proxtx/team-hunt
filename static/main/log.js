@@ -2,13 +2,12 @@ const logList = document.getElementById("logList");
 
 let knownLog = [];
 let audio = new Audio("/lib/mp3/notification.mp3");
-let silence = new Audio("/lib/mp3/silence.mp3");
 
 let initialPlay = false;
 
 document.addEventListener("click", () => {
   if (!initialPlay) {
-    silence.play();
+    audio.play();
     initialPlay = true;
   }
 });
