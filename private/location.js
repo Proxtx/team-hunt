@@ -146,5 +146,5 @@ export const updateLocationsLoop = async () => {
   }
   await gameState.saveGameState();
 
-  setTimeout(() => updateLocationsLoop(), 15000);
+  setTimeout(() => updateLocationsLoop(), 10000);
 };
