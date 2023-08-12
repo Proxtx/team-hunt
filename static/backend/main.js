@@ -14,6 +14,7 @@ const fakeLocationAmount = document.getElementById("fakeLocationAmount");
 const revealCaptures = document.getElementById("revealCaptures");
 const advancedHistory = document.getElementById("advancedHistory");
 const teamsTimeoutOnCapture = document.getElementById("teamsTimeoutOnCapture");
+const userOverwrite = document.getElementById("userOverwrite");
 const locationRevealInterval = document.getElementById(
   "locationRevealInterval"
 );
@@ -85,4 +86,24 @@ locationRevealInterval.addEventListener("change", () => {
     "locationRevealInterval",
     Number(locationRevealInterval.component.value)
   );
+});
+
+const applyOptionArray = async (elem, options) => {
+  elem.innerHTML = "";
+  for (let option of options) {
+    let oElem = document.createElement("option");
+    oElem.innerText = option;
+    oElem.value = option;
+    elem.appendChild(oElem);
+  }
+};
+
+const users = await backendApi.getUsers(cookie.adminPwd);
+
+users.users = ["--"].concat(users.users);
+
+applyOptionArray(userOverwrite, users.users);
+
+userOverwrite.addEventListener("change", async () => {
+  await backendApi.setUserOverwrite(cookie.adminPwd, userOverwrite.value);
 });

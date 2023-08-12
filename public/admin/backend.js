@@ -1,4 +1,5 @@
 import { auth } from "./meta.js";
+import { setLocatorUserOverwrite } from "../../private/location.js";
 import { gameState, defaultGameState } from "../../private/gameState.js";
 import * as gameFlow from "../../private/gameFlow.js";
 
@@ -30,5 +31,16 @@ export const updateConfig = async (pwd, attribute, value) => {
   gameState.gameState.config[attribute] = value;
   gameFlow.appendLog("Updated Rules.");
   await gameState.saveGameState();
+  return { success: true };
+};
+
+export const getUsers = (pwd) => {
+  if (!auth(pwd)) return { success: false, error: 1 };
+  return { success: true, users: Object.keys(gameState.gameState.users) };
+};
+
+export const setUserOverwrite = (pwd, user) => {
+  if (!auth(pwd)) return { success: false, error: 1 };
+  setLocatorUserOverwrite(user);
   return { success: true };
 };

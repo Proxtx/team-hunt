@@ -13,10 +13,21 @@ let life360 = new Life360(
   config.life360.password
 );
 
+let locatorUserOverwrite = null;
+
+export const setLocatorUserOverwrite = (username) => {
+  locatorUserOverwrite = username;
+};
+
 await life360.init();
 
 export const getLocatorLocation = async () => {
-  if (lastLocatorLocation.id == lastId) {
+  if (locatorUserOverwrite && gameState.gameState.users[locatorUserOverwrite]) {
+    lastLocatorLocation.location =
+      gameState.gameState.users[locatorUserOverwrite].location;
+    lastLocatorLocation.id =
+      gameState.gameState.users[locatorUserOverwrite].locationUpdate;
+  } else if (lastLocatorLocation.id == lastId) {
     await new Promise(async (r) => {
       setTimeout(r, 5000);
       try {
@@ -71,7 +82,7 @@ const updateClientLocations = async () => {
       p.push(
         (async () => {
           return await new Promise((r) => {
-            setTimeout(r, 5000);
+            setTimeout(r, 4000);
             send(client, "getLocation").then((v) => {
               if (v.success && v.locationSuccess) r(v.location);
               else {
@@ -111,6 +122,7 @@ const updateClientLocations = async () => {
     for (let user in pendingLocations) {
       if (gameState.gameState.users[user] && pendingLocations[user]) {
         gameState.gameState.users[user].location = pendingLocations[user];
+        gameState.gameState.users[user].locationUpdate = Date.now();
       }
     }
   }
