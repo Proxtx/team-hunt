@@ -27,7 +27,11 @@ const updateMap = async () => {
 };
 
 const updateMapLoop = async () => {
-  await updateMap();
+  try {
+    await updateMap();
+  } catch (e) {
+    alert("Fehler beim Aktualisieren der Karte:", e);
+  }
 
   setTimeout(() => updateMapLoop(), 15000);
 };
