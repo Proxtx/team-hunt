@@ -15,6 +15,7 @@ const revealCaptures = document.getElementById("revealCaptures");
 const advancedHistory = document.getElementById("advancedHistory");
 const teamsTimeoutOnCapture = document.getElementById("teamsTimeoutOnCapture");
 const userOverwrite = document.getElementById("userOverwrite");
+const logMessage = document.getElementById("logMessage");
 const locationRevealInterval = document.getElementById(
   "locationRevealInterval"
 );
@@ -86,6 +87,10 @@ locationRevealInterval.addEventListener("change", () => {
     "locationRevealInterval",
     Number(locationRevealInterval.component.value)
   );
+});
+
+logMessage.addEventListener("change", () => {
+  backendApi.appendCustomLog(cookie.adminPwd, logMessage.component.value);
 });
 
 const applyOptionArray = async (elem, options) => {

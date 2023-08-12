@@ -44,3 +44,10 @@ export const setUserOverwrite = (pwd, user) => {
   setLocatorUserOverwrite(user);
   return { success: true };
 };
+
+export const appendCustomLog = async (pwd, message) => {
+  if (!auth(pwd)) return { success: false, error: 1 };
+  gameFlow.appendLog(message);
+  await gameState.saveGameState();
+  return { success: true };
+};
