@@ -109,6 +109,8 @@ users.users = ["--"].concat(users.users);
 
 applyOptionArray(userOverwrite, users.users);
 
+users.value = "--";
+
 const existingOverwrite = await backendApi.getUserOverwrite(cookie.adminPwd);
 
 userOverwrite.value = existingOverwrite.overwrite;
