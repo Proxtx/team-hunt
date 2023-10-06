@@ -14,5 +14,10 @@
       "name": "1.jpg",
       "location": "0 0"
     }
-  ]
+  ],
+  "mapVars": {
+    "accessToken": "XXX",
+    "center": [1,1],
+    "zoom": 12.8
+  }
 }

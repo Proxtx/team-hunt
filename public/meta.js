@@ -15,3 +15,8 @@ export const available = async (pwd, username) => {
   if (auth(pwd) && gameState.gameState.users[username]) return true;
   return false;
 };
+
+export const mapVars = async (pwd) => {
+  if (!auth(pwd)) return false;
+  return { success: true, vars: config.mapVars };
+};
