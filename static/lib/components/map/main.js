@@ -1,3 +1,7 @@
+import { meta } from "/lib/apiLoader.js";
+
+const vars = await meta.mapVars(cookie.pwd);
+
 const locationMarkerImage = document.createElement("img");
 locationMarkerImage.src = "/lib/images/locationMarkerImage.svg";
 locationMarkerImage.style.width = "20px";
@@ -90,13 +94,12 @@ export class Component {
       console.log("Map API not available. Waiting.");
       await new Promise((r) => setTimeout(r, 10));
     }
-    mapboxgl.accessToken =
-      "pk.eyJ1IjoicHJveHR4IiwiYSI6ImNsNXF5dm9mZTBpdTgzanA4bXAxZGxqajIifQ.ardzxffHpMXyhvSjlC-gAw"; //TODO: fetch from config
+    mapboxgl.accessToken = vars.accessToken;
     this.map = new mapboxgl.Map({
       container: this.mapElem,
       style: "mapbox://styles/proxtx/clkoc742t00lw01pcfykfadqc/draft",
-      center: [6.958811, 50.93591], // TODO: fetch from server
-      zoom: 12.8, // TODO: fetch from server
+      center: vars.center,
+      zoom: vars.zoom,
     });
 
     this.map.on("click", (e) => {
