@@ -19,7 +19,9 @@ await framework.ws.addModule("/main/receiver.js", "receiver");
 connect();
 
 if (navigator.wakeLock) await navigator.wakeLock.request("screen");
-else
+else if (!cookie.wackeLockWarn) {
   alert(
     "Achtung die Webseite konnte deinen Bildschirm nicht in den 'WakeLock' Zustand versetzen!"
   );
+  cookie.wakeLockWarn = "Warned";
+}
