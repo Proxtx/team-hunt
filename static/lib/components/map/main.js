@@ -1,6 +1,6 @@
 import { meta } from "/lib/apiLoader.js";
 
-const vars = await meta.mapVars(cookie.pwd);
+const vars = (await meta.mapVars(cookie.pwd)).vars;
 
 const locationMarkerImage = document.createElement("img");
 locationMarkerImage.src = "/lib/images/locationMarkerImage.svg";
