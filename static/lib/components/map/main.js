@@ -89,6 +89,11 @@ export class Component {
     this.mapElem = this.document.getElementById("map");
   }
 
+  setLiveLocationDisplay(enabled, username) {
+    this.liveLocationEnabled = enabled;
+    this.ownUsername = username;
+  }
+
   async init() {
     while (!window.mapboxgl) {
       console.log("Map API not available. Waiting.");
