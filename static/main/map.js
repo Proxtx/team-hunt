@@ -15,6 +15,9 @@ bigMap.component.mapElem.style.height = "600px";
 await miniMap.component.init();
 await bigMap.component.init();
 
+await miniMap.component.setLiveLocationDisplay(true, cookie.username);
+await bigMap.component.setLiveLocationDisplay(true, cookie.username);
+
 bigMapWrap.style.display = "none";
 
 downArrowsInnerWrap.addEventListener("click", () => {

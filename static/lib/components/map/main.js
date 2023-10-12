@@ -26,6 +26,13 @@ const playerImage = document.createElement("img");
 playerImage.src = "/lib/images/player.svg";
 playerImage.style.width = "18px";
 
+const liveLocationImageWrapper = document.createElement("div");
+
+const liveLocationImage = document.createElement("img");
+liveLocationImage.src = "/lib/images/liveLocation.png";
+liveLocationImage.style.width = "18px";
+liveLocationImageWrapper.appendChild(liveLocationImage);
+
 const objectObjects = {
   locationMarker: {
     anchor: "center",
@@ -76,6 +83,14 @@ const objectObjects = {
     rotationAlignment: "map",
     scale: 2,
     popUp: "<h3>$NAME</h3>",
+  },
+
+  liveLocation: {
+    anchor: "center",
+    element: liveLocationImageWrapper,
+    rotationAlignment: "viewport",
+    scale: 2,
+    popUp: "<h3>Du</h3>",
   },
 };
 
@@ -215,8 +230,22 @@ export class Component {
   }
 
   updateTeamLocation(gameState) {
+    let liveLocationResult = false;
+
+    if (this.liveLocationEnabled) {
+      try {
+        liveLocationResult = this.setLiveLocation();
+      } catch (e) {
+        alert("Error displaying your location! " + e);
+      }
+    }
+
     for (let member in gameState.team.members) {
-      if (!gameState.team.members[member].location) continue;
+      if (
+        !gameState.team.members[member].location ||
+        (liveLocationResult && this.ownUsername == member)
+      )
+        continue;
       let cfg = { ...objectObjects.player };
       cfg.element = cfg.element.cloneNode();
       let location = [...gameState.team.members[member].location];
@@ -227,5 +256,26 @@ export class Component {
         );
       this.addMarker(marker);
     }
+  }
+
+  setLiveLocation() {
+    let location = window.lastLocationUpdate;
+    let rotation = window.lastRotationUpdate;
+
+    if (!location || !location.coords) return false;
+
+    let cfg = { ...objectObjects.liveLocation };
+    cfg.element = cfg.element.cloneNode(true);
+    cfg.element.children[0].style.transform = "rotate(" + rotation + "deg)";
+    let marker = new mapboxgl.Marker(cfg)
+      .setLngLat(
+        [location.coords.longitude, location.coords.latitude].map((v) =>
+          Number(v)
+        )
+      )
+      .setPopup(new mapboxgl.Popup().setHTML(cfg.popUp));
+    this.addMarker(marker);
+
+    return true;
   }
 }

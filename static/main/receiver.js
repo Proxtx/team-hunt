@@ -1,3 +1,4 @@
+import { getLocation as getLocationService } from "./locationService.js";
 import { rebuild } from "/modules/compare/main.js";
 import { update } from "./gameStateManagement.js";
 import { meta } from "../lib/apiLoader.js";
@@ -33,9 +34,7 @@ export const updateGameState = (rebuildUpdate) => {
 };
 
 export const getLocation = async () => {
-  let location = await new Promise((r) =>
-    navigator.geolocation.getCurrentPosition(r, r)
-  );
+  let location = await getLocationService();
 
   if (location.code) {
     return { success: true, locationSuccess: false };
