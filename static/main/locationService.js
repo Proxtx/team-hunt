@@ -1,9 +1,13 @@
 window.lastRotationUpdate = 0;
 
 export const getLocation = async () => {
-  let location = await new Promise((r) =>
-    navigator.geolocation.getCurrentPosition(r, r)
-  );
+  try {
+    let location = await new Promise((r) =>
+      navigator.geolocation.getCurrentPosition(r, r)
+    );
+  } catch {
+    alert("Location fetch error!");
+  }
 
   window.lastLocationUpdate = location;
 
