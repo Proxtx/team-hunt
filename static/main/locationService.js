@@ -14,16 +14,16 @@ export const getLocation = async () => {
   return location;
 };
 
-// TODO: Test this
-
 const startCompass = async () => {
   if (DeviceOrientationEvent?.requestPermission) {
     try {
       let res = await DeviceOrientationEvent.requestPermission();
       if (res != "granted") {
-        alert(
-          "Device orientation service denied! This will disable the rotation on the map!"
-        );
+        if (!cookie.rotationWarn)
+          alert(
+            "Device orientation service denied! This will disable the rotation on the map!"
+          );
+        cookie.rotationWarn = true;
       }
     } catch (e) {
       console.log("Error asking for device orientation permission!", e);
