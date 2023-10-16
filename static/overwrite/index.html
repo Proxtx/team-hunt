@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overwrite Team-Hunt credentials</title>
+    <link rel="stylesheet" href="../lib/main.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <m-overwrite-container>
+      <div id="mainContent">
+        <t-box class="mainBox">
+          <t-list-content>
+            <t-text-box> Passwort </t-text-box>
+            <div class="input-wrap">
+              <m-text-input
+                placeholder="Value"
+                password="true"
+                id="password"
+              ></m-text-input>
+            </div>
+          </t-list-content>
+        </t-box>
+        <t-box class="mainBox">
+          <t-list-content>
+            <t-text-box> Name </t-text-box>
+            <div class="input-wrap">
+              <m-text-input placeholder="Value" id="name"></m-text-input>
+            </div>
+          </t-list-content>
+        </t-box>
+        <t-box class="mainBox">
+          <t-list-content>
+            <t-text-box> Speichern </t-text-box>
+            <div class="input-wrap">
+              <m-button id="startButton">Start</m-button>
+            </div>
+          </t-list-content>
+        </t-box>
+      </div>
+    </m-overwrite-container>
+    <script src="main.js" type="module"></script>
+  </body>
+</html>
