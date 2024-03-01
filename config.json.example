@@ -2,13 +2,6 @@
   "port": 3000,
   "pwd": "team_hunt",
   "adminPwd": "team_hunt_admin",
-  "life360": {
-    "url": "https://api-cloudfront.life360.com/v3",
-    "email": "--",
-    "password": "--",
-    "circleId": "--",
-    "memberId": "--"
-  },
   "locations": [
     {
       "name": "1.jpg",

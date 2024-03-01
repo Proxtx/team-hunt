@@ -1,46 +1,10 @@
 {
   "components": {
-    "box": {
-      "name": "t-box",
-      "template": "/components/box/index.html",
-      "component": "/components/box/main.js",
-      "styles": ["/main.css", "/components/box/style.css"]
-    },
-    "list-content": {
-      "name": "t-list-content",
-      "template": "/components/list-content/index.html",
-      "component": "/components/list-content/main.js",
-      "styles": ["/main.css", "/components/list-content/style.css"]
-    },
-    "list-content-h": {
-      "name": "t-list-content-h",
-      "template": "/components/list-content-h/index.html",
-      "component": "/components/list-content-h/main.js",
-      "styles": ["/main.css", "/components/list-content-h/style.css"]
-    },
-    "text-box": {
-      "name": "t-text-box",
-      "template": "/components/text-box/index.html",
-      "component": "/components/text-box/main.js",
-      "styles": ["/main.css", "/components/text-box/style.css"]
-    },
     "map": {
       "name": "t-map",
       "template": "/components/map/index.html",
       "component": "/components/map/main.js",
       "styles": ["/main.css", "/components/map/style.css"]
-    },
-    "team-status": {
-      "name": "t-team-status",
-      "template": "/components/team-status/index.html",
-      "component": "/components/team-status/main.js",
-      "styles": ["/main.css", "/components/team-status/style.css"]
-    },
-    "log": {
-      "name": "t-log",
-      "template": "/components/log/index.html",
-      "component": "/components/log/main.js",
-      "styles": ["/main.css", "/components/log/style.css"]
     },
     "location-pop-up": {
       "name": "t-location-pop-up",

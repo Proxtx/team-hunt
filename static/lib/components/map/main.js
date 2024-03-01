@@ -117,7 +117,7 @@ export class Component {
     mapboxgl.accessToken = vars.accessToken;
     this.map = new mapboxgl.Map({
       container: this.mapElem,
-      style: "mapbox://styles/proxtx/clkoc742t00lw01pcfykfadqc/draft",
+      style: "mapbox://styles/proxtx/clt4j5ksl000001qph3it37wx",
       center: vars.center,
       zoom: vars.zoom,
     });
